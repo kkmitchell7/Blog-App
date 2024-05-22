@@ -1,0 +1,13 @@
+.date-author-text {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.484);
+    font-weight: bold;
+  }
+  
+  .dot-divider {
+    margin: 9px 4px;
+    width: 4px;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.484);
+    border-radius: 50%;
+  }
