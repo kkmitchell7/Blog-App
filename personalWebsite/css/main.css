@@ -63,6 +63,18 @@ a:hover {
     color: purple;
 }
 
+.headings {
+    font-size: 50px;
+}
+
+.subHeading {
+    padding-top: 30px;
+}
+
+.bodyP {
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.502);
+}
 
 /*
 header {
