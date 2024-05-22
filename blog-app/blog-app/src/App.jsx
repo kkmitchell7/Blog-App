@@ -1,9 +1,9 @@
 import logo from './logo.svg';
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import renderHomePage from './components/renderHomePage.jsx'
-import renderBlogsPage from './components/renderBlogsPage.jsx'
-import renderCategoriesPage from './components/renderCategoriesPage.jsx'
+//import renderHomePage from './components/renderHomePage.jsx'
+//import renderBlogsPage from './components/renderBlogsPage.jsx'
+//import renderCategoriesPage from './components/renderCategoriesPage.jsx'
 
 import HomePage from "./components/HomePage";
 import BlogPage from "./components/BlogPage";
@@ -22,7 +22,6 @@ function App() {
 
     </div>
   );
-  //renderCategoriesPage();
 }
 
 export default App;
