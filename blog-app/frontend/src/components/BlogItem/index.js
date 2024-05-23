@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import BlogItemText from "../BlogItemText";
 
@@ -48,3 +49,7 @@ export default function BlogItem ({
     );
   }
 }
+
+BlogItem.propTypes = {
+  blogPost: PropTypes.object.isRequired,
+};

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const data = require("../../dummy-data.json");
 const categories = data.categories;
@@ -26,3 +27,7 @@ export default function Categories({ blogPost }) {
     </div>
   );
 }
+
+Categories.propTypes = {
+  blogPost: PropTypes.object.isRequired,
+};

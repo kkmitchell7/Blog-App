@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import Categories from "../Categories";
 import "./index.css";
@@ -62,3 +63,8 @@ export default function BlogItemText({ blogPost, headerFontSize, genCategories }
   }
   
 }
+
+BlogItemText.propTypes = {
+  blogPost: PropTypes.object.isRequired,
+  headerFontSize: PropTypes.string,
+};
