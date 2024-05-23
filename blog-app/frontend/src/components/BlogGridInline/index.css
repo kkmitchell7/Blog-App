@@ -1,0 +1,20 @@
+.blog-grid-container {
+  overflow-y: auto;
+}
+
+.item-main {
+  width: 30%;
+  padding-right: 12px;
+}
+
+@media (max-width: 1024px) {
+  .blog-grid-container {
+    display: block;
+    height: auto;
+  }
+
+  .item-main {
+    width: 100%;
+    padding-right: 0px;
+  }
+}

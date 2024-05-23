@@ -1,0 +1,13 @@
+.theBlogTitle {
+  border-top:rgba(0, 0, 0, 0.13);
+  border-bottom:rgba(0, 0, 0, 0.13);
+  text-align: center;
+  font-size: calc(100px + 2vw);
+  font-weight: bold;
+  width: 100%;
+}
+
+.greyText {
+  color: rgba(0, 0, 0, 0.484);
+}
+  
