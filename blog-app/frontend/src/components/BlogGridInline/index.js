@@ -24,7 +24,7 @@ export default function BlogGridInline({ blogPosts }) {
                 key={blog.id}
                 index={blog.id}
                 blogPost={blog}
-                genCategories = "false"
+                genCategories = {false}
               />
           </div>
   

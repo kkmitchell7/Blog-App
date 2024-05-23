@@ -9,7 +9,6 @@ export default function BlogGrid({ blogPosts }) {
     console.log("null!");
     return null;
   }
-
   //d-block causes post2 and post1 to be blocked, so one after another. posts0 & d-block are inline since we're using flexblox
   //last post is automatically blocked since div is a blocked component
   return (

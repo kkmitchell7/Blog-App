@@ -5,8 +5,8 @@ import Categories from "../Categories";
 import "./index.css";
 
 export default function BlogItemText({ blogPost, headerFontSize, genCategories }) {
-  if (genCategories){
-    return (
+      console.log(genCategories)
+      return (
       <div>
         <div style={{ display: "flex" }}>
           <p className="date-author-text">
@@ -29,39 +29,15 @@ export default function BlogItemText({ blogPost, headerFontSize, genCategories }
         <p style={{ fontSize: "16px", color: "#667085", textAlign: "left" }}>
           {blogPost.description.substring(0, 100)}...
         </p>
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <Categories blogPost={blogPost} />
+        {
+          genCategories && (
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                <Categories blogPost={blogPost} />
+              </div>
+            )
+          }
         </div>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <div style={{ display: "flex" }}>
-          <p className="date-author-text">
-            {blogPost.author.firstName} {blogPost.author.lastName}
-          </p>
-          <div className="dot-divider"></div>
-          <p className="date-author-text">
-            {blogPost.createdAt.substring(0,10)}
-          </p>
-        </div>
-        <p
-          style={{
-            fontSize: headerFontSize,
-            fontWeight: "bold",
-            textAlign: "left",
-          }}
-        >
-          {blogPost.title}
-        </p>
-        <p style={{ fontSize: "16px", color: "#667085", textAlign: "left" }}>
-          {blogPost.description.substring(0, 100)}...
-        </p>
-      </div>
-    );
-  }
-  
+      )
 }
 
 BlogItemText.propTypes = {
