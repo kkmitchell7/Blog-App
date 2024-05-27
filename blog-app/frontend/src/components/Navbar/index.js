@@ -1,12 +1,14 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
+
 export default function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg">
       <div style={{ margin: "0px 1%" }} className="container-fluid">
-        <a className="navbar-brand" href="#">
-            <p className="m-0">iX Software Engineering Blog</p>
-        </a>
+        <Link className="navbar-brand" to="/home">
+          iX Software Engineering Blog
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -22,24 +24,22 @@ export default function Navbar() {
           <ul className="navbar-nav ms-auto">
             <li className="nav-item d-flex mr-auto navBar">
               <div className="p-2">
-                <a className="nav-link active" aria-current="page" href="#">
-                  <p className="m-1">Home</p>
-                </a>
+                <Link className="nav-link active m-1" aria-current="page" to="/home"> Home</Link>
               </div>
               <div className="p-2">
-                <a className="nav-link active" aria-current="page" href="#">
+                <Link className="nav-link active" aria-current="page" to="/categories">
                   <p className="m-1">Categories</p>
-                </a>
+                </Link>
               </div>
               <div className="p-2">
-                <a className="nav-link active" aria-current="page" href="#">
+                <Link className="nav-link active" aria-current="page" to="/blogs">
                   <p className="m-1">Blogs</p>
-                </a>
+                </Link>
               </div>
               <div className="p-2">
-                <a className="nav-link active" aria-current="page" href="#">
+                <Link className="nav-link active" aria-current="page" href="#">
                   <p className="m-1">About</p>
-                </a>
+                </Link>
               </div>
             </li>
           </ul>

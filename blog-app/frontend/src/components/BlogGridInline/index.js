@@ -11,10 +11,9 @@ export default function BlogGridInline({ blogPosts }) {
     return null;
   }
   return(
-  <div className="blog-grid-container row w-100 d-flex pt-3 justify-content-center h-100">
+  <div className="blog-grid-container row w-100 d-flex pt-3 h-100">
   {
     blogPosts.map((blog)=> {
-      console.log(blog.id)
       return (
       <>
       <React.Fragment key={blog.id}>

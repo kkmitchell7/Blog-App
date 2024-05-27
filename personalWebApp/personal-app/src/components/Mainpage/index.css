@@ -1,0 +1,33 @@
+article {
+    height: 100vh;
+    border-bottom: solid 1px rgba(128, 128, 128, 0.285);
+    padding: 20px;
+}
+
+a:hover {
+    color: rgb(220, 197, 220);
+  }
+
+.caroHeight {
+    height: 100%;
+}
+
+.iconColor {
+    color: purple;
+}
+.mainHeading {
+    font-size:80px;
+    font-weight: bold;
+}
+.headings {
+    font-size: 50px;
+}
+
+.subHeading {
+    padding-top: 30px;
+}
+
+.bodyP {
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.502);
+}

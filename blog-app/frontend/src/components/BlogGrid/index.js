@@ -6,7 +6,6 @@ import BlogItem from "../BlogItem";
 
 export default function BlogGrid({ blogPosts }) {
   if (!blogPosts || !blogPosts.length) {
-    console.log("null!");
     return null;
   }
   //d-block causes post2 and post1 to be blocked, so one after another. posts0 & d-block are inline since we're using flexblox

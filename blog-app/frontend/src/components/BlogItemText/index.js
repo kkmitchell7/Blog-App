@@ -5,7 +5,6 @@ import Categories from "../Categories";
 import "./index.css";
 
 export default function BlogItemText({ blogPost, headerFontSize, genCategories }) {
-      console.log(genCategories)
       return (
       <div>
         <div style={{ display: "flex" }}>
