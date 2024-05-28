@@ -25,8 +25,7 @@ export default function HomePage() {
   useEffect(()=>{
     const fetchBlogs = async()=>{
       try{
-        const blogsRes = await blogService
-        .getBlogs()
+        const blogsRes = await blogService.getBlogs()
         setBlogs(blogsRes)
       } catch(err){
         console.log(err)
@@ -41,8 +40,7 @@ export default function HomePage() {
   useEffect(()=>{
     const fetchCategories = async()=>{
       try{
-        const categoryRes = await categoryService
-        .getCategories()
+        const categoryRes = await categoryService.getCategories()
         setCategories(categoryRes)
       } catch(err){
         console.log(err)

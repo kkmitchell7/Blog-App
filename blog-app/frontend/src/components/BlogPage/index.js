@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 import './index.css';
 
@@ -15,11 +16,15 @@ const data = require("../../dummy-data.json");
 const user = data.user;
 
 export default function BlogPage() {
-
+  const { categoryIdParam } = useParams()
   
   const [categoryId, setCategoryId ] = useState();
 
   const [blogs,setBlogs] = useState();
+
+  const [categories,setCategories] = useState();
+
+  const [loading, setLoading] = useState(true);
   
   useEffect(()=>{
     const fetchBlogs = async()=>{
@@ -36,13 +41,11 @@ export default function BlogPage() {
       }
     }
     fetchBlogs();
+    setLoading(false);
     return() => {
       //cleanup code, subscriptions so we're not reloading when subscribed to databases when not on the page
     }
   }, [categoryId]);
-
-
-  const [categories,setCategories] = useState();
 
     useEffect(()=>{
       const fetchCategories = async()=>{
@@ -72,7 +75,7 @@ export default function BlogPage() {
             categoryId === category.id.toString() ? (
             <button
               key={category.id}
-              onClick={() => setCategoryId(category.id)}
+              onClick={() => setCategoryId(category.id)} //fix this here to be a link!
               style={{ color: "blue" }}
             >
             <p key={category.id}>{category.title}</p>
@@ -92,21 +95,32 @@ export default function BlogPage() {
     }
   };
 
-
-  return (
-    <>
-      <Navbar />
-      <div className="container">
-        <Heading user={user} />
-        <div className="scroll-menu">
-          <CategoriesList />
+  if (loading) {
+    return(
+      <div className="">
+        <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
         </div>
-        <SubHeading subHeading={"Blog Posts"} />
-        <BlogGridInline blogPosts={blogs}></BlogGridInline>
-        <Footer />
       </div>
-    </>
-  );
+      </div>
+    )
+  } else{
+    return (
+      <>
+        <Navbar />
+        <div className="container">
+          <Heading user={user} />
+          <div className="scroll-menu">
+            <CategoriesList />
+          </div>
+          <SubHeading subHeading={"Blog Posts"} />
+          <BlogGridInline blogPosts={blogs}></BlogGridInline>
+          <Footer />
+        </div>
+      </>
+    );
+  }
 }
 
 //<Footer />

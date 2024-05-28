@@ -8,6 +8,7 @@ const getBlogs= async() =>{
         }
         })
         const blogsApiData = await data.json();
+        console.log(blogsApiData.message)
         return blogsApiData.data;
     } catch(error){
         throw new Error(error);
