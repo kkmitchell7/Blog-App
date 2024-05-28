@@ -7,7 +7,6 @@ import BlogItem from "../BlogItem";
 export default function BlogGridInline({ blogPosts }) {
   
   if (!blogPosts || !blogPosts.length) {
-    console.log("null!");
     return null;
   }
   return(
@@ -15,7 +14,6 @@ export default function BlogGridInline({ blogPosts }) {
   {
     blogPosts.map((blog)=> {
       return (
-      <>
       <React.Fragment key={blog.id}>
           <div className="item-main p-3 col-med-1">
               <BlogItem
@@ -28,7 +26,6 @@ export default function BlogGridInline({ blogPosts }) {
           </div>
   
       </React.Fragment>
-      </>
     );})
   }
   </div>

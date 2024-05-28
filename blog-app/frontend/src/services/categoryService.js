@@ -16,7 +16,7 @@ const getCategories= async() =>{
 
     const getCategoriesbyID= async(categoryId) =>{
         try{
-            const data = await fetch(`https://ix-blog-app-2d5c689132cd.herokuapp.com/api/blogs/category?iid=${categoryId}`,{
+            const data = await fetch(`https://ix-blog-app-2d5c689132cd.herokuapp.com/api/blogs/category?iid=[${categoryId}]`,{
             method: "GET",
             hearers: {
                 "Content-Type":"application/json"

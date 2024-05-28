@@ -20,36 +20,6 @@ export default function BlogPage() {
   const [categoryId, setCategoryId ] = useState();
 
   const [blogs,setBlogs] = useState();
-
-  /**if (categoryId == 0 || categoryId == null){
-      useEffect(()=>{
-        const fetchBlogs = async()=>{
-          try{
-            const blogsRes = await blogService
-            .getBlogs()
-            setBlogs(blogsRes)
-          } catch(err){
-            console.log(err)
-          }
-        }
-        fetchBlogs();
-        
-      },[]);
-    } else if (categoryId){
-      useEffect(()=>{
-        const fetchBlogsbyID = async()=>{
-          try{
-            const blogsRes = await blogService
-            .getBlogs()
-            setBlogs(blogsRes)
-          } catch(err){
-            console.log(err)
-          }
-        }
-        fetchBlogsbyID();
-        
-      },[]);
-    } */
   
   useEffect(()=>{
     const fetchBlogs = async()=>{
@@ -58,7 +28,7 @@ export default function BlogPage() {
           const blogsRes = await blogService.getBlogs();
           setBlogs(blogsRes);
         }else if (categoryId){
-          const blogsRes = await categoryService.getBlogsbyID(categoryId);
+          const blogsRes = await categoryService.getCategoriesbyID(categoryId);
           setBlogs(blogsRes);
         }
       } catch(err){
@@ -74,24 +44,21 @@ export default function BlogPage() {
 
   const [categories,setCategories] = useState();
 
-  useEffect(()=>{
-    const fetchCategories = async()=>{
-      try{
-        const categoryRes = await categoryService
-        .getCategories()
-        setCategories(categoryRes)
-      } catch(err){
-        console.log(err)
+    useEffect(()=>{
+      const fetchCategories = async()=>{
+        try{
+          const categoryRes = await categoryService
+          .getCategories()
+          setCategories(categoryRes)
+        } catch(err){
+          console.log(err)
+        }
       }
-    }
-    fetchCategories();
-    
-  },[]);
-
-
-
+      fetchCategories();
+    },[]);
 
   const CategoriesList = () => {
+      if (categories){
       return(
       <>
       <button
@@ -99,7 +66,8 @@ export default function BlogPage() {
           onClick={() => setCategoryId(0)}
           style={{ color: "black" }}
         ><p key={0}>All</p></button>
-        {categories.map((category, index) => {
+        {
+        categories.map((category, index) => {
           return (
             categoryId === category.id.toString() ? (
             <button
@@ -121,6 +89,7 @@ export default function BlogPage() {
         })}
         </>  
       )
+    }
   };
 
 
