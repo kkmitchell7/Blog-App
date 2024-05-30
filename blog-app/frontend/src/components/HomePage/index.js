@@ -7,6 +7,9 @@ import Navbar from "../Navbar";
 import BlogGrid from "../BlogGrid";
 import SubHeading from "../SubHeading";
 import CategoryList from "../CategoryList";
+import SuccessToast from "../../services/SuccessToast";
+import Loading from "../Loading";
+import ErrorToast from "../../services/ErrorToast";
 import Footer from "../Footer";
 import blogService from "../../services/blogService";
 import categoryService from "../../services/categoryService";
@@ -18,37 +21,49 @@ const data = require("../../dummy-data.json");
 const user = data.user; //need to convert these to api requests
 
 
-
 export default function HomePage() {
-  const [blogs,setBlogs] = useState();
+  const [blogs, setBlogs] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [isError, setIsError] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [message, setMessage] = useState("");
 
-  useEffect(()=>{
-    const fetchBlogs = async()=>{
-      try{
-        const blogsRes = await blogService.getBlogs()
-        setBlogs(blogsRes)
-      } catch(err){
-        console.log(err)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const blogs = await blogService.fetchBlogs();
+        setBlogs(blogs.data.reverse());
+        const categories = await categoryService.fetchCategories();
+        setCategories(categories.data);
+        setIsSuccess(true);
+        setMessage(blogs.message);
+        setIsLoading(false);
+      } catch (error) {
+        setIsError(true);
+        setMessage(error.message);
+        setIsLoading(false);
       }
-    }
-    fetchBlogs();
-    
-  },[]);
+    };
+    fetchData();
+  }, []);
 
-  const [categories,setCategories] = useState();
+  const resetSuccess = () => {
+    setIsSuccess(false);
+    setMessage("");
+  }
 
-  useEffect(()=>{
-    const fetchCategories = async()=>{
-      try{
-        const categoryRes = await categoryService.getCategories()
-        setCategories(categoryRes)
-      } catch(err){
-        console.log(err)
-      }
-    }
-    fetchCategories();
-    
-  },[]);
+   const resetError = () => {
+    setIsError(false);
+    setMessage("");
+  }
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
 
   return (
     <>
@@ -59,8 +74,18 @@ export default function HomePage() {
         <BlogGrid blogPosts={blogs}></BlogGrid>
         <SubHeading subHeading={"Categories"} />
         <CategoryList categories={categories}></CategoryList>
-        <Footer />
       </div>
+      <SuccessToast
+        show={isSuccess}
+        message={message}
+        onClose={resetSuccess}
+      />
+      <ErrorToast
+        show={isError}
+        message={message}
+        onClose={resetError}
+      />
+      <Footer />
     </>
   );
 }

@@ -9,11 +9,11 @@ export default function BlogItemText({ blogPost, headerFontSize, genCategories }
       <div>
         <div style={{ display: "flex" }}>
           <p className="date-author-text">
-            {blogPost.author.firstName} {blogPost.author.lastName}
+            implement author here
           </p>
           <div className="dot-divider"></div>
           <p className="date-author-text">
-            {blogPost.createdAt.substring(0,10)}
+            implement date here
           </p>
         </div>
         <p

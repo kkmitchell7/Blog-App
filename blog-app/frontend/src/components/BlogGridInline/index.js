@@ -4,7 +4,7 @@ import "./index.css";
 
 import BlogItem from "../BlogItem";
 
-export default function BlogGridInline({ blogPosts }) {
+export default function BlogGridInline({ blogPosts, setEditBlog, setDeleteBlog }) {
   
   if (!blogPosts || !blogPosts.length) {
     return null;
@@ -22,6 +22,8 @@ export default function BlogGridInline({ blogPosts }) {
                 index={blog.id}
                 blogPost={blog}
                 genCategories = {false}
+                setEditBlog={setEditBlog}
+                setDeleteBlog={setDeleteBlog}
               />
           </div>
   

@@ -21,6 +21,7 @@ a:hover {
 }
 .headings {
     font-size: 50px;
+    font-weight: 590;
 }
 
 .subHeading {
@@ -30,4 +31,8 @@ a:hover {
 .bodyP {
     font-size: 15px;
     color: rgba(0, 0, 0, 0.502);
+}
+
+.greyText{
+    color: grey;
 }

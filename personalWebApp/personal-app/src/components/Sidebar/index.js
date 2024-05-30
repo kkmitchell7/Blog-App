@@ -18,6 +18,9 @@ export default function Sidebar() {
                     <a href="#experience" className="sideBarLink">Experience</a>
                 </div>
                 <div className="sidebarDiv">
+                    <a href="#education" className="sideBarLink">Education</a>
+                </div>
+                <div className="sidebarDiv">
                     <a href="#skills" className="sideBarLink">Skills</a>
                 </div>
                 <div className="sidebarDiv">

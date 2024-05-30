@@ -8,13 +8,13 @@ export default function Textcomponent({title,subtitle, body, dates}) {
         <div className="d-flex mt-4">
             <div>
                 <h3 className="titleHeading"> {title} </h3>
-                <h6> {subtitle} </h6>
+                <h6 className="subTitle"> {subtitle} </h6>
                 <p className="textDes"> 
                         {body}
                 </p>
             </div>
-            <div>
-                <h6 className="textDate">{dates}</h6>
+            <div className="ms-auto">
+                <h6 className="textDate pl-1">{dates}</h6>
             </div>
         </div>
         </>

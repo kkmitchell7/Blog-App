@@ -4,7 +4,7 @@ import "./index.css";
 
 import BlogItem from "../BlogItem";
 
-export default function BlogGrid({ blogPosts }) {
+export default function BlogGrid({ blogPosts, setEditBlog, setDeleteBlog }) {
   if (!blogPosts || !blogPosts.length) {
     return null;
   }
@@ -20,6 +20,8 @@ export default function BlogGrid({ blogPosts }) {
               index={0}
               blogPost={blogPosts[0]}
               genCategories={true}
+              setEditBlog={setEditBlog}
+              setDeleteBlog={setDeleteBlog}
             />
           )}
         </div>
@@ -32,20 +34,22 @@ export default function BlogGrid({ blogPosts }) {
                 index={1}
                 blogPost={blogPosts[1]}
                 genCategories={true}
+                setEditBlog={setEditBlog}
+                setDeleteBlog={setDeleteBlog}
               />
             </div>
           )}
 
           {blogPosts.length > 2 && (
             <div className="item-3">
-              <BlogItem index={2} blogPost={blogPosts[2]} genCategories={true} />
+              <BlogItem index={2} blogPost={blogPosts[2]} genCategories={true} setEditBlog={setEditBlog} setDeleteBlog={setDeleteBlog} />
             </div>
           )}
         </div>
       </div>
       {blogPosts.length > 3 && (
         <div className="item-4">
-          <BlogItem index={3} blogPost={blogPosts[3]} genCategories={true} />
+          <BlogItem index={3} blogPost={blogPosts[3]} genCategories={true} setEditBlog={setEditBlog} setDeleteBlog={setDeleteBlog} />
         </div>
       )}
     </>
