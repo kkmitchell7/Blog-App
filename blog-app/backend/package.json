@@ -1,14 +1,14 @@
 {
-  "name": "blog-app",
+  "name": "ix-blog-app",
   "version": "1.0.0",
-  "description": "Backend server of the blog app",
-  "main": "src/index.js",
+  "description": "This is the backend server for my awesome blog app",
+  "main": "./src/index.js",
   "scripts": {
     "dev": "nodemon ./src/index.js",
     "start": "node ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Byron de Villiers",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",

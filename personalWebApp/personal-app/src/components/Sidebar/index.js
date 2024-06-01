@@ -1,15 +1,20 @@
-import React from "react";
+import React, {useRef} from "react";
 
 import './index.css';
 
+import scrollTo from "../Mainpage";
+
 export default function Sidebar() {
+
+
+    
     return (
             <div>
                 
                 <img src={`${process.env.PUBLIC_URL}/kailen.jpg`} alt="Headshot of Kailen" className="headshot "/>
 
                 <div className="sidebarDiv">
-                    <a href="#about" className="sideBarLink">About</a>
+                    <a href="#about" className="sideBarLink" onClick={null}>About</a>
                 </div>
                 <div className="sidebarDiv">
                     <a href="#projects" className="sideBarLink">Projects</a>

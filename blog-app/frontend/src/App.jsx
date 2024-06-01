@@ -1,22 +1,20 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.min.js";
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import "bootstrap-icons/font/bootstrap-icons.css";
+
+import "./App.css";
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Link, useNavigate, useParams } from "react-router-dom";
 
-//import renderHomePage from './components/renderHomePage.jsx'
-//import renderBlogsPage from './components/renderBlogsPage.jsx'
-//import renderCategoriesPage from './components/renderCategoriesPage.jsx'
+import HomePage from "./pages/Home";
+import BlogsPage from "./pages/Blogs";
+import BlogPage from "./pages/Blog";
+import CategoriesPage from "./pages/Categories";
 
-import HomePage from "./components/HomePage";
-import BlogPage from "./components/BlogPage";
-import CategoriesPage from "./components/CategoriesPage";
-import IBlogPage from "./components/IndivBlogPage";
-import LoginPage from "./components/LoginPage";
-import RegisterPage from "./components/RegisterPage";
-
-
-const router = createBrowserRouter([
+const routes = [
   {
-    path: "/",
+    path: "",
     element: <HomePage />,
   },
   {
@@ -24,27 +22,22 @@ const router = createBrowserRouter([
     element: <HomePage />,
   },
   {
-    path: "/categories",
-    element: <CategoriesPage />,
-  },
-  {
     path: "/blogs/:categoryId?",
-    element: <BlogPage />,
+    element: <BlogsPage />,
   },
   {
     path: "/blog/:blogId",
-    element: <IBlogPage />,
-  }
-]);
+    element: <BlogPage />,
+  },
+  {
+    path: "/categories",
+    element: <CategoriesPage />,
+  },
+];
+const router = createBrowserRouter(routes);
 
 function App() {
-
-  return (
-    <div className="App">
-      <RouterProvider router={router} />;
-
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
