@@ -34,7 +34,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <Heading user={user} />
+      <Heading  />
       <div className="container">
         <SubHeading subHeading={"Recent Blog Posts"} />
         <BlogGrid blogPosts={blogs} />

@@ -10,6 +10,8 @@ export default function CategoriesList({ categories, onEdit, onDelete }) {
     return null;
   }
 
+  const user = JSON.parse(localStorage.getItem("user"))
+
   return (
     <div className="category-list">
       {categories.map((category) => {
@@ -37,16 +39,18 @@ export default function CategoriesList({ categories, onEdit, onDelete }) {
                 {category.description.substring(0, 100)}...
               </p>
             </div>
-            {onEdit && onDelete && (
-              <EditButtons
-                onEdit={() => {
-                  onEdit(category);
-                }}
-                onDelete={() => {
-                  onDelete(category);
-                }}
-              />
-            )}
+            {
+              user && user.token && onEdit && onDelete && (
+                <EditButtons
+                  onEdit={() => {
+                    onEdit(category);
+                  }}
+                  onDelete={() => {
+                    onDelete(category);
+                  }}
+                />
+              )
+            }
           </button>
         );
       })}
