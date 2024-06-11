@@ -9,7 +9,7 @@ const register = async (userData) => {
   
     if (!response.ok) {
       let res = await response.json();
-      throw res;
+      return res;
     }
   
     const responseData = await response.json();
@@ -28,7 +28,7 @@ const register = async (userData) => {
   
     if (!response.ok) {
       let res = await response.json();
-      throw res;
+      return res;
     }
   
     const responseData = await response.json();

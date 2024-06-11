@@ -1,0 +1,27 @@
+Backend
+- Node.js is backend only and Express.js uses node.js but just adds middleware and helpful stuff to make it easier
+- MongoDB is what provides the database
+- Mongoose is a library added to MongoDB to make it easier
+Frontend
+- React is a library that makes it easier to make responsive pages with web hooks and also allows us to write our html in the same page as the javascript to make a more cohesive app
+- Bootstrap and css work together to create how the page looks
+- Html is the skeleton
+
+
+How it all works:
+
+Frontend
+App.jsx does all router management and is what actually renders the app. In src we also have components which contains all
+reusable pieces of pages, pages which contains all the pages that app.jsx renders, app which contains the configuration
+of the global states, features which contains the global state management (which uses services), and services which is 
+what actually does the API calls to the backend.
+
+Backend
+index.js sets up the backend by initializing express and pulls together/creates all the routes. In the routes folder we have
+service specific routes which handles each API route and type and calls the correct function from the controller. In the
+controller folder is where we do the backend functionality, like getting or adding to the database. We use mongoose to help
+us with this, which comes with built in functions that can search and save to the database. The models folder is where
+we initialize and export mongoose. We also specifiy the model of the database and what type of data the entry contains.
+The middleware folder is only for authorization since that is the only time we need to perform some functions in between
+the API call being recieved in the router and performing the action in the controller. We use this middleware for blog/category
+creation, deletion, and modification.

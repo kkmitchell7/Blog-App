@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+
 import Navbar from "../../components/Navbar";
 import Heading from "../../components/Heading";
 import SubHeading from "../../components/Subheading";
@@ -9,132 +12,88 @@ import { useParams, Link } from "react-router-dom";
 
 import "./index.css";
 
-import blogService from "../../services/blogService";
-import categoryService from "../../services/categoryService";
 import AddEditBlogModal from "../../components/AddEditBlogModal";
 import Loading from "../../components/Loading";
 import SuccessToast from "../../components/SuccessToast";
 import ErrorToast from "../../components/ErrorToast";
 import DeleteBlogModal from "../../components/DeleteBlogModal";
 
+import {
+  setAddBlog,
+  fetchBlogsByCategoryId,
+  resetSuccessAndError as resetBlog,
+} from "../../features/blogsSlice";
+import {
+  fetchCategories,
+  resetSuccessAndError as resetCategory,
+} from "../../features/categoriesSlice";
 
-const data = require("../../dummy-data.json");
-const user = data.user;
+
 
 export default function BlogsPage() {
-  const user = JSON.parse(localStorage.getItem("user"))
-
-
   const { categoryId } = useParams();
 
-  const [blogs, setBlogs] = useState([]);
-  const [categories, setCategories] = useState();
+  const user = useSelector((state) => state.auth.user);
 
-  const [addBlog, setAddBlog] = useState();
-  const [editBlog, setEditBlog] = useState();
-  const [deleteBlog, setDeleteBlog] = useState();
-
-  const [loading, setLoading] = useState();
-  const [isSuccess, setIsSuccess] = useState();
-  const [isError, setIsError] = useState();
-  const [message, setMessage] = useState();
+  const dispatch = useDispatch();
+  const {
+    blogs,
+    isError: isBlogsError,
+    isSuccess: isBlogSuccess,
+    isLoading: isLoadingBlogs,
+    message: blogsMessage,
+  } = useSelector((state) => state.blogs);
+  const {
+    categories,
+    isError: isCategoriesError,
+    isSuccess: isCategoriesSuccess,
+    isLoading: isLoadingCategories,
+    message: categoriesMessage,
+  } = useSelector((state) => state.categories);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      const blogsRes = await blogService.fetchBlogsByCategoryId(
-        categoryId ? categoryId : null
-      );
-      const categoriesRes = await categoryService.fetchCategories();
-      setBlogs(blogsRes.data);
-      setCategories(categoriesRes.data);
-      setLoading(false);
+    dispatch(fetchCategories());
+    dispatch(fetchBlogsByCategoryId(categoryId));
+    return () => {
+      dispatch(resetBlog());
+      dispatch(resetCategory());
     };
-
-    fetchData();
   }, [categoryId]);
 
-  const onBlogAdd = () => {
-    setAddBlog({
+  const onAddBlog = () => {
+    dispatch(setAddBlog({
       title: "",
       description: "",
       categories: [],
-      authorId: user._id,
+      authorId: user?._id,
       content: [
         {
           sectionHeader: "",
           sectionText: "",
         },
       ],
-    });
+    }));
   };
 
-  const AddButton = () => {
-    if(!user?.token) return null;
+  const AddBlog = () => {
     return (
-      <button className="btn btn-outline-dark h-75" onClick={onBlogAdd}>
-        ADD BLOG
-      </button>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <p className="page-subtitle">Blog Posts</p>
+        {user && (
+          <button
+            style={{ margin: "16px" }}
+            type="button"
+            className="btn btn-outline-secondary"
+            onClick={onAddBlog}
+          >
+            Add Blog Post
+          </button>
+        )}
+      </div>
     );
-    };
-
-  const onBlogEdit = (blog) => {
-    setEditBlog(blog);
   };
 
-  const onBlogDelete = (blog) => {
-    setDeleteBlog(blog);
-  };
 
-  const createBlog = async (blog) => {
-    try {
-      const newBlog = await blogService.createBlog(blog);
-      setIsSuccess(true);
-      setMessage(newBlog.message);
-      setBlogs((prev) => {
-        return [...prev, newBlog.data];
-      });
-    } catch (err) {
-      setIsError(true);
-      setMessage(err);
-    }
-    setAddBlog(null);
-  };
-
-  const updateBlog = async (blog) => {
-    try {
-      const newBlog = await blogService.updateBlog(blog);
-      setIsSuccess(true);
-      setMessage(newBlog.message);
-      setBlogs((prev) => {
-        return prev.map((x) => {
-          if (x.id === newBlog.data.id) {
-            return newBlog.data;
-          }
-          return x;
-        });
-      });
-    } catch (err) {
-      setIsError(true);
-      setMessage(err);
-    }
-    setEditBlog(null);
-  };
-
-  const removeBlog = async (blog) => {
-    try {
-      const newBlog = await blogService.deleteBlog(blog.id);
-      setIsSuccess(true);
-      setMessage(newBlog.message);
-      setBlogs((prev) => {
-        return prev.filter((x) => x.id !== blog.id);
-      });
-    } catch (err) {
-      setIsError(true);
-      setMessage(err);
-    }
-    setDeleteBlog(null);
-  };
 
   const CategoriesList = ({ categoryId }) => {
     if (!categories && !categories?.length) {
@@ -152,7 +111,7 @@ export default function BlogsPage() {
           key={0}
           to={"/blogs"}
           style={{ color: "black" }}
-          onClick={() => categoryId = null}
+          onClick={() => categoryId = null} //need to fix so it turns black!
         >
           <p key={0}>All</p>
         </Link>
@@ -194,7 +153,7 @@ export default function BlogsPage() {
     )
   };
 
-  if (loading) {
+  if (isLoadingCategories || isLoadingBlogs) {
     return <Loading />;
   }
 
@@ -204,49 +163,28 @@ export default function BlogsPage() {
       <div className="container">
         <Heading />
         <div className="scroll-menu">
-          <CategoriesList categoryId={categoryId} />
+          <CategoriesList />
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <SubHeading subHeading={"Blog Posts"} />
-          <AddButton />
-        </div>
-        <BlogList
-          blogPosts={blogs}
-          onBlogEdit={onBlogEdit}
-          onBlogDelete={onBlogDelete}
-        />
-        <AddEditBlogModal
-          categories={categories}
-          addBlog={addBlog}
-          editBlog={editBlog}
-          createBlog={createBlog}
-          updateBlog={updateBlog}
-          onClose={() => {
-            setAddBlog(null);
-            setEditBlog(null);
-          }}
-        />
-        <DeleteBlogModal
-          deleteBlog={deleteBlog}
-          removeBlog={removeBlog}
-          onClose={() => setDeleteBlog(null)}
-        />
+        <AddBlog />
+        <BlogList blogPosts={blogs} />
       </div>
-
       <Footer />
+      <AddEditBlogModal />
+      <DeleteBlogModal />
       <SuccessToast
-        show={isSuccess}
-        message={message}
+        show={isBlogSuccess || isCategoriesSuccess}
+        message={blogsMessage || categoriesMessage}
         onClose={() => {
-          setIsSuccess(false);
+          dispatch(resetBlog());
+          dispatch(resetCategory());
         }}
       />
-
       <ErrorToast
-        show={isError}
-        message={message}
+        show={isBlogsError || isCategoriesError}
+        message={blogsMessage || categoriesMessage}
         onClose={() => {
-          setIsError(false);
+          dispatch(resetBlog());
+          dispatch(resetCategory());
         }}
       />
     </>
