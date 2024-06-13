@@ -1,44 +1,46 @@
 import React, { useEffect, useState } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
-
 import Navbar from "../../components/Navbar";
 import Heading from "../../components/Heading";
-import SubHeading from "../../components/Subheading";
 import CategoryList from "../../components/CategoriesList";
 import Footer from "../../components/Footer";
 import Loading from "../../components/Loading";
 
+import categoryService from "../../services/categoryService";
 import SuccessToast from "../../components/SuccessToast";
 import ErrorToast from "../../components/ErrorToast";
 import AddEditCategoryModal from "../../components/AddEditCategoryModal";
 import DeleteCategoryModal from "../../components/DeleteCategoryModal";
 
-import {
-  fetchCategories,
-  resetSuccessAndError as resetCategory,
-} from "../../features/categoriesSlice";
-
-
 export default function CategoriesPage() {
+  const user = JSON.parse(localStorage.getItem("user"));
 
-  const user = useSelector((state) => state.auth.user);
-
-  const dispatch = useDispatch();
-
+  const [categories, setCategories] = useState([]);
   const [addCategory, setAddCategory] = useState();
   const [editCategory, setEditCategory] = useState();
   const [deleteCategory, setDeleteCategory] = useState();
 
-  const {
-    categories,
-    isError: isCategoriesError,
-    isSuccess: isCategoriesSuccess,
-    isLoading: isLoadingCategories,
-    message: categoriesMessage,
-  } = useSelector((state) => state.categories);
+  const [loading, setLoading] = useState();
+  const [message, setMessage] = useState();
+  const [isSuccess, setIsSuccess] = useState();
+  const [isError, setIsError] = useState();
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const categoriesRes = await categoryService.fetchCategories();
+        setCategories(categoriesRes.data);
+        setLoading(false);
+      } catch (err) {
+        setIsError(true);
+        setMessage(err);
+        setLoading(false);
+      }
+    };
 
+    fetchData();
+  }, []);
 
   const onCategoryAdd = () => {
     setAddCategory({
@@ -102,9 +104,9 @@ export default function CategoriesPage() {
   };
 
   const AddButton = () => {
-    if(!user?.token) return null;
+    if (!user || !user.token) return null;
     return (
-      <button className="btn btn-outline-dark h-75" onClick={onCategoryAdd}>
+      <button className="btn btn-outline-dark m-3" onClick={onCategoryAdd}>
         ADD CATEGORY
       </button>
     );
@@ -120,7 +122,7 @@ export default function CategoriesPage() {
       <div className="container">
         <Heading />
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <SubHeading subHeading={"Categories"} />
+          <p className="page-subtitle">Categories</p>
           <AddButton />
         </div>
         <CategoryList

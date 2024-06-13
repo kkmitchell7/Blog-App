@@ -60,36 +60,33 @@ export default function BlogsPage() {
     };
   }, [categoryId]);
 
-  const onAddBlog = () => {
-    dispatch(setAddBlog({
-      title: "",
-      description: "",
-      categories: [],
-      authorId: user?._id,
-      content: [
-        {
-          sectionHeader: "",
-          sectionText: "",
-        },
-      ],
-    }));
+  const onBlogAdd = () => {
+    dispatch(
+      setAddBlog({
+        title: "",
+        description:
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        categories: [],
+        authorId: user._id,
+        content: [
+          {
+            sectionHeader: "Introduction",
+            sectionText:
+              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+          },
+        ],
+      })
+    );
   };
 
-  const AddBlog = () => {
+  const AddButton = () => {
+    if (!user || !user?.token) {
+      return null;
+    }
     return (
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <p className="page-subtitle">Blog Posts</p>
-        {user && (
-          <button
-            style={{ margin: "16px" }}
-            type="button"
-            className="btn btn-outline-secondary"
-            onClick={onAddBlog}
-          >
-            Add Blog Post
-          </button>
-        )}
-      </div>
+      <button className="btn btn-outline-dark m-3" onClick={onBlogAdd}>
+        ADD BLOG
+      </button>
     );
   };
 
@@ -163,25 +160,28 @@ export default function BlogsPage() {
       <div className="container">
         <Heading />
         <div className="scroll-menu">
-          <CategoriesList />
+          <CategoriesList categoryId={categoryId} />
         </div>
-        <AddBlog />
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <p className="page-subtitle">Blog Posts</p>
+          <AddButton />
+        </div>
         <BlogList blogPosts={blogs} />
       </div>
       <Footer />
       <AddEditBlogModal />
       <DeleteBlogModal />
       <SuccessToast
-        show={isBlogSuccess || isCategoriesSuccess}
-        message={blogsMessage || categoriesMessage}
+        show={isBlogSuccess}
+        message={blogsMessage}
         onClose={() => {
           dispatch(resetBlog());
           dispatch(resetCategory());
         }}
       />
       <ErrorToast
-        show={isBlogsError || isCategoriesError}
-        message={blogsMessage || categoriesMessage}
+        show={isBlogsError}
+        message={blogsMessage}
         onClose={() => {
           dispatch(resetBlog());
           dispatch(resetCategory());

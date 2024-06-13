@@ -65,22 +65,6 @@ export default function Home() {
         <CategoriesList categories={categories} />
         <Footer />
       </div>
-      <SuccessToast
-        show={isBlogSuccess || isCategoriesSuccess}
-        message={blogsMessage || categoriesMessage}
-        onClose={() => {
-          dispatch(resetBlog());
-          dispatch(resetCategory());
-        }}
-      />
-      <ErrorToast
-        show={isBlogsError || isCategoriesError}
-        message={blogsMessage || categoriesMessage}
-        onClose={() => {
-          dispatch(resetBlog());
-          dispatch(resetCategory());
-        }}
-      />
     </>
   );
 }

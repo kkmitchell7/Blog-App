@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const { upload } = require("../middleware/multer");
+
 const blogController = require("../controllers/blogs");
 
 const {protect} = require("../middleware/authMiddleware")
@@ -8,7 +10,7 @@ const {protect} = require("../middleware/authMiddleware")
 /**
  * POST /api/blogs
  */
-router.post("/", protect, (req, res) => {
+router.post("/", protect, upload.single("image"), (req, res) => {
   blogController.createBlogs(req, res);
 });
 
@@ -38,7 +40,7 @@ router.get("/categories/:id", (req, res) => {
 /**
  * Put /api/blogs/
  */
-router.put("/:id", protect, (req, res) => {
+router.put("/:id", protect,  upload.single("image"), (req, res) => {
   blogController.updateBlogByID(req, res);
 });
 

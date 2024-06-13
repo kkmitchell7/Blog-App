@@ -1,10 +1,15 @@
 import React from "react";
 
+import { logout } from "../../features/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+
 import { Link,useNavigate } from "react-router-dom";
 
 export default function Navbar() {
 
-  const user = JSON.parse(localStorage.getItem("user"))
+  const dispatch = useDispatch();
+  //const user = JSON.parse(localStorage.getItem("user"))
+  const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
   return (
     <nav className="navbar navbar-expand-lg">
@@ -67,6 +72,7 @@ export default function Navbar() {
                             className="dropdown-item"
                             onClick={() => {
                               localStorage.removeItem("user");
+                              dispatch(logout);
                               navigate("/login");
                             }}
                           >

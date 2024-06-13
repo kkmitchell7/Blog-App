@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 require("dotenv").config();
 
 const blogsRoutes = require("./routes/blogs");
@@ -14,7 +15,7 @@ const port = process.env.PORT || 8000;
 const app = express();
 
 app.use(cors());
-
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 app.use(express.json());
 
 app.use("/api/blogs", blogsRoutes);
