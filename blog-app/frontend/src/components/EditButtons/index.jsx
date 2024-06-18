@@ -17,6 +17,7 @@ export default function EditButtons({ onEdit, onDelete }) {
       >
         <i className="bi bi-pencil-fill"></i>
       </button>
+      {onDelete && (
       <button
         style={{
           position: "absolute",
@@ -31,6 +32,7 @@ export default function EditButtons({ onEdit, onDelete }) {
       >
         <i className="bi bi-trash-fill"></i>
       </button>
+      )}
     </>
   );
 }

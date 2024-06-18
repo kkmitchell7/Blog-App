@@ -27,7 +27,7 @@ export default function CategoriesList({ categories, onEdit, onDelete }) {
             <div
               className="card-body w-100"
               style={{
-                backgroundColor: category.color + "33",
+                backgroundColor: category.color + "22",
                 position: "relative",
                 zIndex: 0,
               }}

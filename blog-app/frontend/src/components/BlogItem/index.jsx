@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import BlogItemText from "../BlogItemText";
 import EditButtons from "../EditButtons";
@@ -17,6 +18,8 @@ export default function BlogItem({
 }) {
   const user = JSON.parse(localStorage.getItem("user"))
 
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const navigateToBlog = () => {
     if (!onBlogEdit && !onBlogDelete) {
@@ -27,8 +30,9 @@ export default function BlogItem({
   const EditButtonsContainer = () => {
     return (
       <EditButtons
-        onEdit={() => onBlogEdit(blog)}
-        onDelete={() => onBlogDelete(blog)}
+        onEdit={() => dispatch(onBlogEdit(blog))}
+        onDelete={() => dispatch(onBlogDelete(blog))}
+        onNavigate={() => navigate(`/blog/${blog.id}`)}
       />
     );
   };
@@ -38,11 +42,9 @@ export default function BlogItem({
         <img src={blog.image} className="card-img-top" alt="..." />
         <div className="card-text-bottom">
           <BlogItemText blogPost={blog} headerFontSize="20px" />
-          {
-            user && user.token && onBlogEdit && onBlogDelete ? (
-              <EditButtonsContainer />
-            ) : null
-          }
+          {user && user.token && onBlogEdit && onBlogDelete ? (
+            <EditButtonsContainer />
+          ) : null}
         </div>
       </div>
     );

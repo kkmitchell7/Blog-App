@@ -5,10 +5,16 @@
   grid-template-columns: 32% 32% 32%;
   grid-gap: 2%;
   row-gap: 32px;
+  height:450px;
 }
 
 .card-body {
   border-radius: 30px;
+  height: 60px;
+}
+
+.card-title{
+  padding-top:16px;
 }
 
 .card:hover {

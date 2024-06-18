@@ -51,4 +51,12 @@ router.delete("/:id", protect, (req, res) => {
   blogController.deleteBlogByID(req, res);
 });
 
+/**
+ * Get blogs by authorId
+ * GET /api/blogs/author/:id
+ */
+router.get("/author/:id", (req, res) => {
+  blogController.getBlogsByAuthorID(req, res);
+});
+
 module.exports = router;

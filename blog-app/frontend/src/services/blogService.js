@@ -143,6 +143,7 @@ const updateBlog = async (blog) => {
 };
 
 const deleteBlog = async (id) => {
+  console.log(id)
   const response = await fetch("http://localhost:8000/api/blogs/" + id, {
     method: "DELETE",
     headers: {

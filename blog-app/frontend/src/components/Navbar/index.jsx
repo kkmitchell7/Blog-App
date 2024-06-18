@@ -61,7 +61,7 @@ export default function Navbar() {
                           <Link
                             className=" dropdown-item"
                             aria-current="page"
-                            to={"/profile/" + user.id}
+                            to={"/profile/" + user._id}
                           >
                             Profile
                           </Link>
@@ -73,7 +73,8 @@ export default function Navbar() {
                             onClick={() => {
                               localStorage.removeItem("user");
                               dispatch(logout);
-                              navigate("/login");
+                              navigate("/home");
+                              window.location.reload();
                             }}
                           >
                             Logout

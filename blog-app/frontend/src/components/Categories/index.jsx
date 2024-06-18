@@ -5,17 +5,20 @@ import PropTypes from "prop-types";
 import "./index.css";
 
 export default function Categories({ categories }) {
-  if (!categories && !categories?.length) return null;
+  if (!categories && !categories?.length){
+    console.log("null");
+    return null;
+  } 
   return (
-    <div className="flex-wrap">
+    <div className="flex-wrap" style={{ display: 'flex', flexWrap: 'wrap' }}>
       {categories.map((category, index) => {
         return (
           <p
             key={index}
             className="category-tag"
             style={{
-              color: category.color,
-              backgroundColor: category.color + "33",
+              color: category.color + "FF",
+              backgroundColor: category.color + "22",
             }}
           >
             {category.title}

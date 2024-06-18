@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -22,6 +22,8 @@ import {
   setAddBlog,
   fetchBlogsByCategoryId,
   resetSuccessAndError as resetBlog,
+  setEditBlog,
+  setDeleteBlog
 } from "../../features/blogsSlice";
 import {
   fetchCategories,
@@ -41,7 +43,7 @@ export default function BlogsPage() {
     isError: isBlogsError,
     isSuccess: isBlogSuccess,
     isLoading: isLoadingBlogs,
-    message: blogsMessage,
+    message: blogsMessage
   } = useSelector((state) => state.blogs);
   const {
     categories,
@@ -89,6 +91,7 @@ export default function BlogsPage() {
       </button>
     );
   };
+
 
 
 
@@ -166,7 +169,7 @@ export default function BlogsPage() {
           <p className="page-subtitle">Blog Posts</p>
           <AddButton />
         </div>
-        <BlogList blogPosts={blogs} />
+        <BlogList blogPosts={blogs} onBlogEdit={setEditBlog} onBlogDelete={setDeleteBlog} />
       </div>
       <Footer />
       <AddEditBlogModal />
