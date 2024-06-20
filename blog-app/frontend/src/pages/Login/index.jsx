@@ -19,7 +19,7 @@ export default function LoginPage() {
   );
 
   useEffect(() => {
-    if (isSuccess || user) {
+    if (isSuccess && user) {
       navigate("/home");
     }
   }, [user, isError, isSuccess, isLoading, message, navigate]);

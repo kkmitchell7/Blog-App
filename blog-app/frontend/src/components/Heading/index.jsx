@@ -8,7 +8,7 @@ export default function Heading() {
     return (
       <>
         <div className="d-flex justify-content-center my-2">
-          <h1 className="border-top border-bottom theBlogTitle"> <strong>The Blog</strong> </h1>
+          <h1 className="border-top border-bottom theBlogTitle"> <strong>The Community</strong> </h1>
         </div>
         <div className="d-flex justify-content-center my-2">
           <h6 className="greyText">Welcome, {user.firstName}.</h6>
@@ -19,7 +19,7 @@ export default function Heading() {
     return (
       <>
         <div className="d-flex justify-content-center my-2">
-          <h1 className="border-top border-bottom theBlogTitle"> <strong>The Blog</strong> </h1>
+          <h1 className="border-top border-bottom theBlogTitle"> <strong>The Community</strong> </h1>
         </div>
         <div className="d-flex justify-content-center my-2">
           <h6 className="greyText">Please Login.</h6>
