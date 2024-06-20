@@ -22,7 +22,7 @@ export default function BlogItem({
 
   const navigate = useNavigate();
   const navigateToBlog = () => {
-    if (!onBlogEdit && !onBlogDelete) {
+    if (!user || !onBlogEdit || !onBlogDelete) {
       navigate(`/blog/${blog.id}`);
     }
   };
