@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import Navbar from "../../components/Navbar";
 
@@ -14,46 +15,44 @@ import Loading from "../../components/Loading";
 
 import "./index.css";
 
+import {
+  fetchBlogById,
+  resetSuccessAndError
+} from "../../features/blogsSlice";
+
 export default function BlogPage() {
   const navigate = useNavigate();
   const { blogId } = useParams();
 
-  const [blog, setBlog] = useState(null);
-  const [isError, setIsError] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [message, setMessage] = useState("");
+  const dispatch = useDispatch();
+  const {
+    blog,
+    isError,
+    isSuccess,
+    isLoading,
+    message
+  } = useSelector((state) => state.blogs);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const blog = await blogService.fetchBlogByID(blogId);
-        setBlog(blog.data);
-        setMessage(blog.message);
-        setIsLoading(false);
-      } catch (error) {
-        setIsError(true);
-        setMessage(error.message || error);
-        setIsLoading(false);
-      }
+    dispatch(fetchBlogById(blogId))
+    return () => {
+      dispatch(resetSuccessAndError());
     };
-    fetchData();
   }, [blogId]);
 
-  const resetSuccess = () => {
-    setIsSuccess(false);
-    setMessage("");
-  };
-
-  const resetError = () => {
-    setIsError(false);
-    setMessage("");
-  };
 
   const navigateToAuthorProfile = () => {
     navigate("/profile/" + blog.author.id);
   };
+
+  if (!blog){
+    console.log("no blog")
+  }
+
+  if (isLoading){
+    console.log("loading")
+  }
+
 
   if (isLoading || !blog) {
     return <Loading />;
@@ -101,8 +100,7 @@ export default function BlogPage() {
         </div>
       </main>
       <Footer />
-      <SuccessToast show={isSuccess} message={message} onClose={resetSuccess} />
-      <ErrorToast show={isError} message={message} onClose={resetError} />
+      <ErrorToast show={isError} message={message} onClose={resetSuccessAndError} />
     </>
   );
 }

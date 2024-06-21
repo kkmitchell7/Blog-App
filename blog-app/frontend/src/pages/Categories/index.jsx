@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import Navbar from "../../components/Navbar";
 import Heading from "../../components/Heading";
@@ -13,7 +14,7 @@ import AddEditCategoryModal from "../../components/AddEditCategoryModal";
 import DeleteCategoryModal from "../../components/DeleteCategoryModal";
 
 export default function CategoriesPage() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = useSelector((state) => state.auth.user);
 
   const [categories, setCategories] = useState([]);
   const [addCategory, setAddCategory] = useState();

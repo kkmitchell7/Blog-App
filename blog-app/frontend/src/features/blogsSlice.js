@@ -54,7 +54,7 @@ export const fetchBlogById = createAsyncThunk(
   "blogs/fetchBlogById",
   async (blogId, thunkAPI) => {
     try {
-      return await blogService.fetchBlogById(blogId);
+      return await blogService.fetchBlogByID(blogId);
     } catch (error) {
       const message = error.message || error;
       return thunkAPI.rejectWithValue(message);
@@ -138,9 +138,9 @@ export const blogsSlice = createSlice({
       .addCase(fetchBlogs.fulfilled, (state, { payload }) => {
         state.blogs = payload.data;
         state.isLoading = false;
-        // state.isSuccess = true;
+        //state.isSuccess = true;
         state.isError = false;
-        // state.message = payload.message;
+        //state.message = payload.message;
       })
       .addCase(fetchBlogs.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -154,9 +154,9 @@ export const blogsSlice = createSlice({
       .addCase(fetchBlogsByCategoryId.fulfilled, (state, { payload }) => {
         state.blogs = payload.data;
         state.isLoading = false;
-        // state.isSuccess = true;
+        //state.isSuccess = true;
         state.isError = false;
-        // state.message = payload.message;
+        //state.message = payload.message;
       })
       .addCase(fetchBlogsByCategoryId.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -170,9 +170,9 @@ export const blogsSlice = createSlice({
       .addCase(fetchBlogById.fulfilled, (state, { payload }) => {
         state.blog = payload.data;
         state.isLoading = false;
-        // state.isSuccess = true;
+        state.isSuccess = true;
         state.isError = false;
-        // state.message = payload.message;
+        state.message = payload.message;
       })
       .addCase(fetchBlogById.rejected, (state, { payload }) => {
         state.isLoading = false;

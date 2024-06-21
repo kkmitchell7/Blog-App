@@ -63,6 +63,7 @@ const fetchBlogByID = async (id) => {
       throw error.message;
     }
   }
+  console.log("fetched blog!")
 
   const blogsApiData = await response.json();
   return blogsApiData;
