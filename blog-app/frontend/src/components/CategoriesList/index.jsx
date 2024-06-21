@@ -1,22 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import "./index.css";
 
 import EditButtons from "../EditButtons";
 
-export default function CategoriesList({ categories, onEdit, onDelete }) {
+import {setEditCategory,
+  setDeleteCategory,
+} from "../../features/categoriesSlice";
+
+export default function CategoriesList({ categories, editButtons }) {
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   
   if (!categories && !categories?.length) {
     return null;
   }
 
   const navigateToCategory = (category) => {
-    if (!user || !onEdit || !onDelete) {
+    if (!user || !editButtons) {
       navigate(`/blogs/${category.id}`);
     }
   };
@@ -53,13 +58,13 @@ export default function CategoriesList({ categories, onEdit, onDelete }) {
               </p>
             </div>
             {
-              user && user.token && onEdit && onDelete && (
+              user && user.token && editButtons && (
                 <EditButtons
                   onEdit={() => {
-                    onEdit(category);
+                    dispatch(setEditCategory(category));
                   }}
                   onDelete={() => {
-                    onDelete(category);
+                    dispatch(setDeleteCategory(category));
                   }}
                   onNavigate={() => {
                     navigateToCategoryIcon(category);

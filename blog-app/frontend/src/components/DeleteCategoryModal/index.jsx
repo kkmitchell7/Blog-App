@@ -1,13 +1,18 @@
 import React, { useMemo, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "bootstrap";
 import PropTypes from "prop-types";
 
-export default function DeleteCategoryModal({
-  deleteCategory,
-  removeCategory,
-  onClose,
-}) {
+import {
+  deleteCategoryByID,
+  setDeleteCategory
+} from "../../features/categoriesSlice";
+
+export default function DeleteCategoryModal() {
+  const dispatch = useDispatch();
   const [category, setCategory] = useState();
+
+  const deleteCategory = useSelector((state) => state.categories.deleteCategory);
 
   const modalEl = document.getElementById("deleteCategoryModal");
   const deleteCategoryModal = useMemo(() => {
@@ -31,14 +36,16 @@ export default function DeleteCategoryModal({
 
   const onCloseModal = () => {
     resetCategory();
-    onClose();
+    dispatch(setDeleteCategory(null));
     deleteCategoryModal?.hide();
   };
 
   const onDelete = () => {
-    removeCategory(deleteCategory);
+    console.log(deleteCategory)
+    dispatch(deleteCategoryByID(deleteCategory.id));
     resetCategory();
     deleteCategoryModal?.hide();
+    window.location.reload();
   };
 
   return (

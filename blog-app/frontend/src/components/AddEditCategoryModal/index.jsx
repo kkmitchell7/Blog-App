@@ -1,14 +1,20 @@
 import React, { useEffect, useState, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "bootstrap";
 import PropTypes from "prop-types";
 
-export default function AddEditCategoryModal({
-  addCategory,
-  editCategory,
+import {
+  setAddCategory,
+  setEditCategory,
   createCategory,
   updateCategory,
-  onClose,
-}) {
+} from "../../features/categoriesSlice";
+
+export default function AddEditCategoryModal() {
+  const dispatch = useDispatch();
+  const editCategory = useSelector((state) => state.categories.editCategory);
+  const addCategory = useSelector((state) => state.categories.addCategory);
+  
   const modalEl = document.getElementById("addEditCategoryModal");
   const addEditCategoryModal = useMemo(() => {
     return modalEl ? new Modal(modalEl) : null;
@@ -42,19 +48,24 @@ export default function AddEditCategoryModal({
     e?.preventDefault();
     if (isFormValid()) {
       if (addCategory) {
-        createCategory(category);
+        dispatch(createCategory(category));
       } else if (editCategory) {
-        updateCategory(category);
+        dispatch(updateCategory(category));
       }
       resetCategory();
       addEditCategoryModal?.hide();
     }
   };
 
+
   const onCloseModal = () => {
     resetCategory();
-    onClose();
-    addEditCategoryModal.hide();
+    addEditCategoryModal?.hide();
+    if (editCategory) {
+      dispatch(setEditCategory(null));
+    } else if (addCategory) {
+      dispatch(setAddCategory(null));
+    }
   };
 
   const isFormValid = () => {
