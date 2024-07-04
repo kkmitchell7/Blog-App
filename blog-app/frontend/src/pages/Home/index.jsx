@@ -9,8 +9,6 @@ import BlogGrid from "../../components/BlogGrid";
 import CategoriesList from "../../components/CategoriesList";
 import Footer from "../../components/Footer";
 import Loading from "../../components/Loading";
-import SuccessToast from "../../components/SuccessToast";
-import ErrorToast from "../../components/ErrorToast";
 
 
 import { fetchBlogs, resetSuccessAndError as resetBlog } from "../../features/blogsSlice";

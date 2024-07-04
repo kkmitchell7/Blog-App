@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Navbar from "../../components/Navbar";
 import Heading from "../../components/Heading";
-import SubHeading from "../../components/Subheading";
 import BlogList from "../../components/BlogList";
 import Footer from "../../components/Footer";
 
