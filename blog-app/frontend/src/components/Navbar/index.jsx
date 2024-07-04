@@ -15,7 +15,7 @@ export default function Navbar() {
     <nav className="navbar navbar-expand-lg">
       <div style={{ margin: "0px 1%" }} className="container-fluid">
         <Link className="navbar-brand" to="/home">
-          Software Engineering Community
+          Software Engineering Community Blog
         </Link>
         <button
           className="navbar-toggler"

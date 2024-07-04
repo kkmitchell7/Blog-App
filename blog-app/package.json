@@ -1,14 +1,14 @@
 {
   "name": "ix-blog-app",
   "version": "1.0.0",
-  "description": "This is the backend server for my awesome blog app",
+  "description": "This is the backend server for the software engineering blog app",
   "main": "./backend/src/index.js",
   "scripts": {
     "start": "node ./backend/src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd frontend && npm install && npm run build"
   },
-  "author": "Byron de Villiers",
+  "author": "Kailen Mitchell",
   "license": "ISC",
   "dependencies": {
     "@google-cloud/storage": "^7.11.2",
