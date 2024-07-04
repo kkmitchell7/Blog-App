@@ -2,9 +2,9 @@
   "name": "personal-blog-app",
   "version": "1.0.0",
   "description": "This is the backend server for the software engineering blog app",
-  "main": "./backend/src/index.js",
+  "main": "./blog-app/backend/src/index.js",
   "scripts": {
-    "start": "node ./backend/src/index.js",
+    "start": "node ./blog-app/backend/src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd blog-app && cd frontend && npm install && npm run build"
   },
